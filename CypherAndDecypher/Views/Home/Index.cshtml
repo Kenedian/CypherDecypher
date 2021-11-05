@@ -1,0 +1,52 @@
+﻿@model CypherAndDecypher.Models.CypherDecypher
+@{
+    ViewData["Title"] = "Cypher / Decypher by Jan Jakeš for TIETOevry";
+}
+
+<div style="height:75vh;">
+    <div class="h-50"></div>
+    <form asp-action="Index" class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <input type="text" class="form-control" asp-for="cypherFrom" value="@ViewData["cypherFrom"]" id="InputCypherFrom" placeholder="Enter text to cypher">
+            </div>
+            <div class="col-md-4 text-center">
+                <input type="submit" asp-for="cypherSubmit" class="btn btn-secondary btn-outline-dark w-50 smbt" value="De/Cypher">
+            </div>
+            <div class="col-md-4">
+                <input readonly type="text" asp-for="@ViewData["cypherResult"]" class="form-control" id="InputCypherTo" placeholder="Result">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 text-center">
+                <p class="font-weight-bold">FROM:</p>
+            </div>
+            <div class="col-md-3">
+                <div class="dropdown text-right">
+                    <input readonly class="btn btn-secondary btn-outline-white dropdown-toggle btnDropFrom" style="cursor:pointer" type="text" id="dropDownCypherFrom" value="@ViewData["cypherDropFrom"]" asp-for="cypherDropFrom" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="dropdown-menu dropdown-menuFrom" aria-labelledby="dropDownCypherFrom">
+                        <a class="dropdown-item" href="#">Normal</a>
+                        <a class="dropdown-item" href="#">Caesar</a>
+                        <a class="dropdown-item" href="#">Morse</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <!--divider-->
+            </div>
+            <div class="col-md-1 text-center">
+                <p class="font-weight-bold">TO:</p>
+            </div>
+            <div class="col-md-3 text-right">
+                <div class="dropdown text-right">
+                    <input readonly class="btn btn-secondary btn-outline-white dropdown-toggle btnDropTo" style="cursor:pointer" type="text" id="dropDownCypherTo" value="@ViewData["cypherDropTo"]" asp-for="cypherDropTo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="dropdown-menu dropdown-menuTo" aria-labelledby="dropDownCypherTo">
+                        <a class="dropdown-item" href="#">Normal</a>
+                        <a class="dropdown-item" href="#">Caesar</a>
+                        <a class="dropdown-item" href="#">Morse</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
