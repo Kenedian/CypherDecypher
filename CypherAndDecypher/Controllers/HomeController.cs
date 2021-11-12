@@ -30,40 +30,33 @@ namespace CypherAndDecypher.Controllers
         [HttpPost]
         public IActionResult Index(CypherDecypher cd)
         {
-            string cypherFrom = cd.cypherFrom;
-
-            string cypherDropFrom = cd.cypherDropFrom;
-            string cypherDropTo = cd.cypherDropTo;
-
-            if(cypherDropFrom == cypherDropTo)
+            if(cd.cypherDropFrom == cd.cypherDropTo)
             {
-                ViewData["cypherFrom"] = cypherFrom;
-                ViewData["cypherDropFrom"] = cypherDropFrom;
-                ViewData["cypherDropTo"] = cypherDropTo;
+                ViewData["cypherFrom"] = cd.cypherFrom;
+                ViewData["cypherDropFrom"] = cd.cypherDropFrom;
+                ViewData["cypherDropTo"] = cd.cypherDropTo;
                 return View();
             }
 
-            if (cypherFrom != null)
+            if (cd.cypherDropTo == "Normal")
             {
-                if (cypherDropFrom != "Normal" && cypherDropTo != "Normal")
-                {
-                    string cypherMethod = cypherDropFrom + "ToNormal";
-                    cd.InvokeMethod(cypherMethod, new List<object> { cypherFrom });
-                    cypherMethod = "NormalTo" + cypherDropTo;
-                    cd.InvokeMethod(cypherMethod, new List<object> { cd.cypherTo });
-                }
-                else
-                {
-                    string cypherMethod = cypherDropFrom + "To" + cypherDropTo;
-                    cd.InvokeMethod(cypherMethod, new List<object> { cypherFrom });
-                }
-                //Result
-                
+                cd.cypherTo = cd.cyphers[cd.cypherDropFrom].Decypher(cd.cypherFrom);
             }
+            else if(cd.cypherDropFrom == "Normal")
+            {
+                cd.cypherTo = cd.cyphers[cd.cypherDropTo].Cypher(cd.cypherFrom);
+            }
+            else
+            {
+                string tempCypher;
+                tempCypher = cd.cyphers[cd.cypherDropFrom].Decypher(cd.cypherFrom);
+                cd.cypherTo = cd.cyphers[cd.cypherDropTo].Cypher(tempCypher);
+            }
+
             ViewData["cypherResult"] = cd.cypherTo;
-            ViewData["cypherFrom"] = cypherFrom;
-            ViewData["cypherDropFrom"] = cypherDropFrom;
-            ViewData["cypherDropTo"] = cypherDropTo;
+            ViewData["cypherFrom"] = cd.cypherFrom;
+            ViewData["cypherDropFrom"] = cd.cypherDropFrom;
+            ViewData["cypherDropTo"] = cd.cypherDropTo;
             return View();
         }
 
