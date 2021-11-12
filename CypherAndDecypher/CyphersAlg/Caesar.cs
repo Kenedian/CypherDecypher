@@ -28,8 +28,6 @@ namespace CypherAndDecypher.CyphersAlg
                 }
                 cypher += (char)ascii;
             }
-
-            //this.cypherTo = cypher;
             return cypher;
         }
 
@@ -52,8 +50,6 @@ namespace CypherAndDecypher.CyphersAlg
                 }
                 decypher += (char)ascii;
             }
-
-            //this.cypherTo = cypher;
             return decypher;
         }
     }

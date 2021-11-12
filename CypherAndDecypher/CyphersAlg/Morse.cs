@@ -89,8 +89,6 @@ namespace CypherAndDecypher.CyphersAlg
                     }
                 }
             }
-
-            //this.cypherTo = cypher;
             return cypher;
         }
 
@@ -155,8 +153,6 @@ namespace CypherAndDecypher.CyphersAlg
                 }
 
             }
-
-            //this.cypherTo = decypher;
             return decypher;
         }
     }
