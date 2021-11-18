@@ -28,35 +28,23 @@ namespace CypherAndDecypher.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Index(CypherDecypher cd)
+        public IActionResult Index(CypherDecypher _cd)
         {
-            if(cd.cypherDropFrom == cd.cypherDropTo)
+            if (_cd.cypherDropFrom == _cd.cypherDropTo)
             {
-                ViewData["cypherFrom"] = cd.cypherFrom;
-                ViewData["cypherDropFrom"] = cd.cypherDropFrom;
-                ViewData["cypherDropTo"] = cd.cypherDropTo;
+                ViewData["cypherFrom"] = _cd.cypherFrom;
+                ViewData["cypherDropFrom"] = _cd.cypherDropFrom;
+                ViewData["cypherDropTo"] = _cd.cypherDropTo;
                 return View();
             }
 
-            if (cd.cypherDropTo == "Normal")
-            {
-                cd.cypherTo = cd.cyphers[cd.cypherDropFrom].Decypher(cd.cypherFrom);
-            }
-            else if(cd.cypherDropFrom == "Normal")
-            {
-                cd.cypherTo = cd.cyphers[cd.cypherDropTo].Cypher(cd.cypherFrom);
-            }
-            else
-            {
-                string tempCypher;
-                tempCypher = cd.cyphers[cd.cypherDropFrom].Decypher(cd.cypherFrom);
-                cd.cypherTo = cd.cyphers[cd.cypherDropTo].Cypher(tempCypher);
-            }
+            CypherDecypher cd = CypherFuncs.CypherSelect.Select(_cd);
 
             ViewData["cypherResult"] = cd.cypherTo;
             ViewData["cypherFrom"] = cd.cypherFrom;
             ViewData["cypherDropFrom"] = cd.cypherDropFrom;
             ViewData["cypherDropTo"] = cd.cypherDropTo;
+
             return View();
         }
 

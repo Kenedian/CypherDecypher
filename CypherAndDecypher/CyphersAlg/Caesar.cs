@@ -11,7 +11,12 @@ namespace CypherAndDecypher.CyphersAlg
 
         public string Cypher(string text)
         {
-            string cypher = "";
+            if (text == null || text == "")
+            {
+                return "";
+            }
+
+            string result = "";
             int ascii = 0;
             text = text.ToUpper();
             //ascii 65-90 (A-Z)
@@ -26,14 +31,19 @@ namespace CypherAndDecypher.CyphersAlg
                         ascii = 91 - (65 - ascii);
                     }
                 }
-                cypher += (char)ascii;
+                result += (char)ascii;
             }
-            return cypher;
+            return result;
         }
 
         public string Decypher(string text)
         {
-            string decypher = "";
+            if (text == null || text == "")
+            {
+                return "";
+            }
+
+            string result = "";
             int ascii = 0;
             text = text.ToUpper();
             //ascii 65-90 (A-Z)
@@ -48,9 +58,9 @@ namespace CypherAndDecypher.CyphersAlg
                         ascii = 64 + (ascii % 90);
                     }
                 }
-                decypher += (char)ascii;
+                result += (char)ascii;
             }
-            return decypher;
+            return result;
         }
     }
 }

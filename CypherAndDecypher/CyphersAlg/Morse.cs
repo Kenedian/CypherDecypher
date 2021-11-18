@@ -71,7 +71,12 @@ namespace CypherAndDecypher.CyphersAlg
 
         public string Cypher(string text)
         {
-            string cypher = "";
+            if (text == null || text == "")
+            {
+                return "";
+            }
+
+            string result = "";
             string cU = "";
             foreach (char c in text)
             {
@@ -80,21 +85,26 @@ namespace CypherAndDecypher.CyphersAlg
                 {
                     if (c == ' ')
                     {
-                        cypher += "| ";
+                        result += "| ";
                     }
                     else
                     {
-                        cypher += AlphabetToMorse[cU[0]];
-                        cypher += " ";
+                        result += AlphabetToMorse[cU[0]];
+                        result += " ";
                     }
                 }
             }
-            return cypher;
+            return result;
         }
 
         public string Decypher(string text)
         {
-            string decypher = "";
+            if(text == null || text == "")
+            {
+                return "";
+            }
+
+            string result = "";
             string[] splitText = text.Split(' ', StringSplitOptions.TrimEntries);
 
 
@@ -103,21 +113,21 @@ namespace CypherAndDecypher.CyphersAlg
 
                 if (s == "")
                 {
-                    //Do nothing.
+                    continue;
                 }
                 else if (s.Contains("|"))
                 {
                     if (s == "|")
                     {
-                        decypher += " ";
+                        result += " ";
                     }
                     else if (s[0] == '|')
                     {
                         string tempS = s.Remove(0, 1);
                         if (MorseToAlphabet.ContainsKey(tempS))
                         {
-                            decypher += " ";
-                            decypher += MorseToAlphabet[tempS];
+                            result += " ";
+                            result += MorseToAlphabet[tempS];
                         }
                     }
                     else if (s[s.Length - 1] == '|')
@@ -125,8 +135,8 @@ namespace CypherAndDecypher.CyphersAlg
                         string tempS = s.Remove(s.Length - 1, 1);
                         if (MorseToAlphabet.ContainsKey(tempS))
                         {
-                            decypher += MorseToAlphabet[tempS];
-                            decypher += " ";
+                            result += MorseToAlphabet[tempS];
+                            result += " ";
                         }
                     }
                     else
@@ -134,12 +144,12 @@ namespace CypherAndDecypher.CyphersAlg
                         string[] tempS = s.Split('|', StringSplitOptions.RemoveEmptyEntries);
                         if (MorseToAlphabet.ContainsKey(tempS[0]))
                         {
-                            decypher += MorseToAlphabet[tempS[0]];
+                            result += MorseToAlphabet[tempS[0]];
                         }
-                        decypher += " ";
+                        result += " ";
                         if (MorseToAlphabet.ContainsKey(tempS[1]))
                         {
-                            decypher += MorseToAlphabet[tempS[1]];
+                            result += MorseToAlphabet[tempS[1]];
                         }
 
                     }
@@ -148,12 +158,12 @@ namespace CypherAndDecypher.CyphersAlg
                 {
                     if (MorseToAlphabet.ContainsKey(s))
                     {
-                        decypher += MorseToAlphabet[s];
+                        result += MorseToAlphabet[s];
                     }
                 }
 
             }
-            return decypher;
+            return result;
         }
     }
 }
