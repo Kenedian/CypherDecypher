@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using CypherAndDecypher.Logger;
 
 namespace CypherAndDecypher.Controllers
 {
@@ -16,6 +17,8 @@ namespace CypherAndDecypher.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            DbConnect.DbCreate.Create();
+            LogLoad.Load();
         }
 
         public IActionResult Index()
@@ -30,7 +33,7 @@ namespace CypherAndDecypher.Controllers
         [HttpPost]
         public IActionResult Index(CypherDecypher _cd)
         {
-            if (_cd.cypherDropFrom == _cd.cypherDropTo)
+            if (_cd.cypherDropFrom == _cd.cypherDropTo || _cd.cypherFrom == null || _cd.cypherFrom == "")
             {
                 ViewData["cypherFrom"] = _cd.cypherFrom;
                 ViewData["cypherDropFrom"] = _cd.cypherDropFrom;
@@ -44,6 +47,14 @@ namespace CypherAndDecypher.Controllers
             ViewData["cypherFrom"] = cd.cypherFrom;
             ViewData["cypherDropFrom"] = cd.cypherDropFrom;
             ViewData["cypherDropTo"] = cd.cypherDropTo;
+
+            LogData ld = new LogData();
+            ld.date = DateTime.Now;
+            ld.cypherFrom = cd.cypherDropFrom;
+            ld.cypherFromText = cd.cypherFrom;
+            ld.cypherTo = cd.cypherDropTo;
+            ld.cypherToText = cd.cypherTo;
+            LogSave.Save(ld);
 
             return View();
         }
